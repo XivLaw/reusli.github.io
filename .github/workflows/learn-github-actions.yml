@@ -1,29 +1,14 @@
 name: learn-github-actions
 run-name: ${{ github.actor }} is learning GitHub Actions
 on: [push]
-# jobs:
-#   check-bats-version:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@v3
-#       - uses: actions/setup-node@v3
-#         with:
-#           node-version: '14'
-#       - run: npm install -g bats
-#       - run: bats -v
-
 jobs:
-  setup:
+  example-job:
     runs-on: ubuntu-latest
     steps:
-      - run: ./setup_server.sh
-  build:
-    needs: setup
-    runs-on: ubuntu-latest
-    steps:
-      - run: ./build_server.sh
-  test:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - run: ./test_server.sh
+      - name: Checkout source code
+        uses: actions/checkout@v1
+      - shell: bash
+        env:
+          SUPER_SECRET: ${{ secrets.SuperSecret }}
+        run: |
+          example-command "$SUPER_SECRET"
