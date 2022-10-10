@@ -12,10 +12,6 @@ jobs:
         run: bash ./weather.sh
       - name: 'Get Date'
         run: echo "REPORT_DATE=$(TZ=':Asia/Shanghai' date '+%Y-%m-%d %T')" >> $GITHUB_ENV
-      - name: 'echo mail username 1'
-        run: echo "${{ secrets.MAIL_USERNAME }}"
-      - name: 'echo mail username 2'
-        run: echo ${{ secrets.MAIL_USERNAME }}
       - name: 'Send mail'
         uses: dawidd6/action-send-mail@master
         with:
@@ -25,7 +21,7 @@ jobs:
           password: ${{ secrets.MAIL_PASSWORD }}
           subject: 来自reusli推送的主页 (${{env.REPORT_DATE}})
           # body: '<iframe src="https://reusli.github.io/"></iframe>'
-          body: file://reusli.github.io
+          body: https://reusli.github.io
           to: reuc@foxmail.com
           from: GitHub Actions
           content_type: text/html
