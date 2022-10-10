@@ -24,7 +24,7 @@ jobs:
           username: ${{ secrets.MAIL_USERNAME }}
           password: ${{ secrets.MAIL_PASSWORD }}
           subject: 来自reusli推送的主页 (${{env.REPORT_DATE}})
-          body: <iframe src='https://reusli.github.io/'></iframe>
+          body: '<iframe src="https://reusli.github.io/"></iframe>'
           to: reuc@foxmail.com
           from: GitHub Actions
           content_type: text/html
