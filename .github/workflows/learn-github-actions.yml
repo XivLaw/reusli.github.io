@@ -1,14 +1,17 @@
-name: learn-github-actions
-run-name: ${{ github.actor }} is learning GitHub Actions
-on: [push]
+name: Retrieve Base64 secret
+on:
+  push:
+    branches: [ octo-branch ]
 jobs:
-  example-job:
+  decode-secret:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout source code
-        uses: actions/checkout@v1
-      - shell: bash
+      - uses: actions/checkout@v3
+      - name: Retrieve the secret and decode it to a file
         env:
-          SUPER_SECRET: ${{ secrets.SuperSecret }}
+          CERTIFICATE_BASE64: ${{ secrets.CERTIFICATE_BASE64 }}
         run: |
-          example-command "$SUPER_SECRET"
+          echo $CERTIFICATE_BASE64 | base64 --decode > cert.der
+      - name: Show certificate information
+        run: |
+          openssl x509 -in cert.der -inform DER -text -noout
